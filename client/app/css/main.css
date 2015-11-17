@@ -1,0 +1,104 @@
+/* fix for navbar-fixed-top */
+body {
+    padding-top: 75px;
+}
+
+/* hides stuff on tiny screens only */
+@media (max-width:500px) {
+    .hidden-on-tiny {
+        display: none;
+    }
+
+    table {
+        font-size: 85%;
+    }
+}
+
+/* shows stuff on tiny screens only */
+@media (min-width:501px) {
+    .visible-on-tiny {
+        display: none;
+    }
+}
+
+/* angular cloak workaround to remove flashing if not loading angular from head */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.alternativeUI {
+    width:100%!important;
+}
+
+/* custom size placement of login and register forms */
+#login-form, #register-form {
+	width: 300px;
+	margin-top: 2vh;
+}
+
+#login-form button, #register-form button {
+    width: 100%;
+}
+
+.pad-l-4px {
+    padding-left: 4px;
+}
+
+.pad-r-4px {
+    padding-right: 4px;
+}
+
+#logo-title {
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+#logo-image {
+    height: 100%;
+    display: inline-block;
+    background: black;
+    border-radius: 4px;
+}
+
+.modal .btn {
+    min-width: 80px!important;
+}
+
+
+/* ##############################################*/
+/* navbar tweaks below                           */
+@media (min-width: 768px) {
+    .navbar-right {
+        margin-right: 0;
+    }
+
+    /* make links appear more tight */
+    .nav>li>a {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+}
+
+/* make horizontal divider properly placed when collapsed menu is open */
+@media ( max-width: 767px ) {
+    .navbar-collapse {
+        margin-top: 4px;
+    }
+}
+
+/* navbar toggle button tweak */
+.navbar-toggle {
+    margin: 8px 4px 8px 4px!important;
+}
+
+/* small padding around common navbar */
+.navbar {
+    padding: 4px;
+}
+
+/* override bootstrap strange padding */
+.navbar-brand {
+    padding: 0;
+}

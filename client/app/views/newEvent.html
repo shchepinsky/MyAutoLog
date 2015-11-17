@@ -1,0 +1,97 @@
+<!-- new event modal -->
+<div id="newEventModal" ng-controller="NewEventCtrl" class="modal fade">
+
+    <!-- modal-dialog -->
+    <div class="modal-dialog">
+
+        <!-- modal-content -->
+        <div class="modal-content">
+
+            <!-- modal header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">New Log Event</h4>
+            </div>
+            <!-- modal header -->
+
+            <!-- modal body -->
+            <div class="modal-body container-fluid">
+
+                <form name="form">
+
+                    <div class="row">
+                        <label class="control-label col-xs-6">
+                            Event Date:
+                            <input class="form-control" name="date" type="date" required
+                                   ng-model="date">
+                        </label>
+
+                        <label class="control-label col-xs-6">
+                            Odometer:
+                            <input class="form-control" name="odometer" type="number" required placeholder="in km"
+                                   ng-model="odometer">
+                        </label>
+
+
+                        <label class="control-label col-xs-6">
+                            Count:
+                            <input class="form-control" type="number" required placeholder="quantity"
+                                   ng-model="count">
+                        </label>
+
+                        <label class="control-label col-xs-6">
+                            Cost:
+                            <input class="form-control" type="number" required placeholder="total cost"
+                                   ng-model="cost">
+                        </label>
+
+                        <label class="control-label col-xs-12">
+                            Short Description:
+                            <textarea class="form-control" name="description" required
+                                      placeholder="event description" rows="2"
+                                      ng-model="description">
+                            </textarea>
+                        </label>
+
+
+                        <label class="control-label col-xs-12">
+                            Additional Notes:
+                            <textarea class="form-control" name="description"
+                                      placeholder="notes" rows="4"
+                                      ng-model="notes">
+                            </textarea>
+                        </label>
+                    </div>
+
+                </form>
+            </div>
+            <!-- modal body -->
+
+            <!-- modal footer -->
+            <div class="modal-footer">
+
+                <!-- save button -->
+                <button class="btn btn-primary" ng-click="saveClick()" ng-disabled="form.$invalid">
+                    Save
+                </button>
+                <!-- save button -->
+
+                <!-- close button -->
+                <button class="btn btn-default" ng-click="closeClick()">
+                    Close
+                </button>
+                <!-- close button -->
+
+            </div>
+            <!-- modal footer -->
+
+        </div>
+        <!-- modal-content -->
+
+    </div>
+    <!-- modal-dialog -->
+
+</div>
+<!-- new event modal -->

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyCarLogger">
+<head>
+
+    <meta charset="utf-8">
+    <!-- Bootstrap required tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My Car Logger</title>
+
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- my stylesheet  -->
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body ng-controller="IndexCtrl" ng-cloak>
+
+    <!-- container class centers horizontally, ng-view directive for Angular html injection  -->
+    <div class="container-fluid" ng-view></div>
+
+</body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="components/jquery/dist/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Angular framework -->
+<script src="components/angular/angular.js"></script>
+<script src="components/angular-route/angular-route.js"></script>
+<script src="components/angular-messages/angular-messages.js"></script>
+<script src="components/angular-cookies/angular-cookies.js"></script>
+
+<!-- my scripts -->
+<script src="js/app.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/authenticator.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/validators.js"></script>
+<script src="js/model.js"></script>
+
+<script src="js/index.js"></script>
+<script src="views/registerCtrl.js"></script>
+<script src="views/loginCtrl.js"></script>
+<script src="views/mainCtrl.js"></script>
+<script src="views/newEventCtrl.js"></script>
+<script src="views/vehicleDataCtrl.js"></script>
+<script src="views/aboutCtrl.js"></script>
+
+</html>

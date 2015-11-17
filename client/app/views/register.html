@@ -1,0 +1,91 @@
+<!--simple header with logo -->
+<div ng-include="'views/parts/nav-empty.html'"></div>
+<!--simple header with logo -->
+
+<!-- register view -->
+<form id="register-form" novalidate class="center-block" name="form">
+
+    <div class="row">
+        <h2 class="text-center">Register New Account</h2>
+
+        <div class="form-group">
+
+            <!-- username -->
+            <input class="form-control"
+                   type="text" name="username" placeholder="username"
+                   required ng-minlength="3"
+                   ng-model="username">
+            <!-- username -->
+
+            <!-- username validation messages -->
+            <div ng-messages="form.username.$error" class="text-danger text-center">
+                <p ng-message="required">username is required.</p>
+                <p ng-message="minlength">username is too short.</p>
+            </div>
+            <!-- username validation messages -->
+
+        </div>
+
+        <div class="form-group">
+
+            <!-- password -->
+            <input class="form-control"
+                   type="password" name="password" placeholder="password"
+                   required required-to-match="password2"
+                   ng-model="password" ng-model-options="{ allowInvalid: true }">
+            <!-- password -->
+
+            <!-- password validation messages -->
+            <div ng-messages="form.password.$error" class="text-danger text-center">
+                <p ng-message="required">password is required.</p>
+                <p ng-message="minlength">password is too short.</p>
+                <p ng-message="requiredToMatch">passwords do not match.</p>
+            </div>
+            <!-- password validation messages -->
+
+        </div>
+
+        <div class="form-group">
+
+            <!-- confirm password -->
+            <input class="form-control"
+                   name="password2" placeholder="password confirmation"
+                   required type="password" required-to-match="password"
+                   ng-model="password2" ng-model-options="{ allowInvalid: true }">
+            <!-- confirm password -->
+
+            <!-- confirm password validation messages -->
+            <div ng-messages="form.password2.$error" class="text-danger text-center">
+                <p ng-message="required">password confirmation is required.</p>
+                <p ng-message="requiredToMatch">passwords do not match.</p>
+            </div>
+            <!-- confirm password validation messages -->
+
+        </div>
+
+        <!-- submit button -->
+        <div class="col-xs-6">
+            <button class="btn btn-success" name="registerButton"
+                    data-ng-disabled="form.$invalid" ng-click="registerClick()">
+                Register
+            </button>
+        </div>
+        <!-- submit button -->
+
+        <!-- cancel button -->
+        <div class="col-xs-6">
+            <button class="btn btn-primary col-xs-6" name="cancelButton"
+                    ng-click="cancelClick()">
+                Cancel
+            </button>
+        </div>
+        <!-- cancel button -->
+
+        <!-- registration error -->
+        <div ng-show="response" class="text-danger text-center">
+            <p ng-bind="response"></p>
+        </div>
+        <!-- registration error -->
+    </div>
+
+</form>

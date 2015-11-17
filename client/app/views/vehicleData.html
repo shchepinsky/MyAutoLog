@@ -1,0 +1,123 @@
+<!-- vehicle info modal -->
+<div id="vehicleDataModal" ng-controller="VehicleDataCtrl" class="modal fade">
+
+    <!-- modal-dialog -->
+    <div class="modal-dialog">
+
+        <!-- modal-content -->
+        <div class="modal-content">
+
+            <!-- modal header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Vehicle Data</h4>
+            </div>
+            <!-- modal header -->
+
+            <!-- modal body -->
+            <div class="modal-body container-fluid">
+
+                <form class="row" novalidate name="form">
+
+                    <!-- brand -->
+                    <label class="control-label col-xs-6">
+                        Brand
+                        <input class="form-control" type="text" required
+                               ng-model="edit.brandName">
+                    </label>
+                    <!-- brand -->
+
+                    <!-- model -->
+                    <label class="control-label col-xs-6">
+                        Model
+                        <input class="form-control" type="text" required
+                               ng-model="edit.modelName">
+                    </label>
+                    <!-- model -->
+
+                    <!--make date -->
+                    <label class="control-label col-xs-6">
+                        Make Date
+                        <input class="form-control" type="date" required
+                               ng-model="edit.makeDate">
+                    </label>
+                    <!--make date -->
+
+                    <!-- purchase date -->
+                    <label class="control-label col-xs-6">
+                        Purchase Date
+                        <input class="form-control" type="date" required
+                               ng-model="edit.purchaseDate">
+                    </label>
+                    <!-- purchased -->
+
+                    <!-- price -->
+                    <label class="control-label col-xs-6">
+                        Price
+                        <input class="form-control" type="number" min="0" required
+                               ng-model="edit.price">
+                    </label>
+                    <!-- price -->
+
+                    <!-- color -->
+                    <label class="control-label col-xs-6">
+                        Color
+                        <input class="form-control" type="color" required
+                               ng-model="edit.color">
+                    </label>
+                    <!-- color -->
+
+                    <!-- fuel type -->
+                    <label class="control-label col-xs-6">
+                        Fuel Type
+                        <select class="form-control" required
+                                data-ng-model="edit.fuelType">
+                            <option>Petrol</option>
+                            <option>Petrol/Gas</option>
+                            <option>Diesel</option>
+                            <option>Hybrid</option>
+                            <option>Electric</option>
+                        </select>
+                    </label>
+                    <!-- fuel type -->
+
+                    <!-- engine displacement -->
+                    <label class="control-label col-xs-6">
+                        Engine, cm<sup>2</sup>
+                        <input type="number" class="form-control" min="0" required
+                               ng-model="edit.engineDisplacement">
+                    </label>
+                    <!-- engine displacement -->
+
+                    <!-- additional info -->
+                    <label class="control-label col-xs-12">
+                        Additional Info
+                        <input class="form-control" type="text"
+                               ng-model="edit.additionalInfo">
+                    </label>
+                    <!-- additional info -->
+
+                </form>
+
+            </div>
+            <!-- modal body -->
+
+            <!-- modal footer -->
+            <div class="modal-footer">
+                <button ng-click="saveClick()" class="btn btn-primary" data-ng-disabled="form.$invalid">
+                    Save
+                </button>
+                <button data-dismiss="modal" class="btn btn-primary">Close</button>
+            </div>
+            <!-- modal footer -->
+
+        </div>
+        <!-- modal-content -->
+
+    </div>
+    <!-- modal-dialog -->
+
+</div>
+<!-- vehicle info modal -->

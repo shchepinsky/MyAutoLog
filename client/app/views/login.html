@@ -1,0 +1,29 @@
+<!-- application header -->
+<div ng-include="'views/parts/nav-empty.html'"></div>
+<!-- application header -->
+
+<!-- login form -->
+<form id="login-form" novalidate class="center-block" name="form">
+
+    <h2 class="text-center">Please log in</h2>
+
+    <!-- form-group adds spacing-->
+    <div class="form-group">
+        <input class="form-control" required ng-model="username" type="text" placeholder="username">
+    </div>
+
+    <!-- form-group adds spacing-->
+    <div class="form-group">
+        <input class="form-control" required ng-model="password" type="password" placeholder="password">
+    </div>
+
+    <button class="btn btn-success btn-block" ng-disabled="form.$invalid" ng-click="loginClick()">
+        Log In
+    </button>
+
+    <a class="btn btn-primary btn-block" href="">Register</a>
+
+    <!-- $scope in controller must have response property -->
+    <p class="text-danger text-center">{{response}}</p>
+</form>
+<!-- login form -->

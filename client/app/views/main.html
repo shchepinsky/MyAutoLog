@@ -1,0 +1,393 @@
+<!-- new event modal -->
+<div ng-include="'views/newEvent.html'"></div>
+<!-- new event modal -->
+
+<!-- vehicle data modal -->
+<div ng-include="'views/vehicleData.html'"></div>
+<!-- vehicle data modal -->
+
+<!-- about modal -->
+<div ng-include="'views/about.html'"></div>
+<!-- about modal -->
+
+<!-- application header -->
+<nav class="navbar navbar-fixed-top"
+     ng-class="{ 'navbar-inverse' : settings.useInvertedNavbar, 'navbar-default' : !settings.useInvertedNavbar }">
+
+    <!-- navbar header -->
+    <div ng-class="{ alternativeUI : settings.useAlternativeUI }" class="navbar-header">
+
+        <!-- logo and title -->
+        <div ng-show="settings.useAlternativeUI" ng-include="'views/parts/logo-responsive.html'"></div>
+        <div ng-hide="settings.useAlternativeUI" ng-include="'views/parts/logo.html'"></div>
+        <!-- logo and title -->
+
+        <!-- toolbar on collapsed header -->
+        <div ng-show="settings.useAlternativeUI" class="pad-l-4px pad-r-4px">
+
+            <div class="pull-left pad-l-4px">
+
+                <!-- new event button -->
+                <a href="" ng-click="newEventClick()" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs">New Event</span>
+                </a>
+                <!-- new event button -->
+
+                <!-- vehicle info button -->
+                <a data-toggle="modal" data-target="#vehicleDataModal"
+                   class="btn btn-default navbar-btn">
+
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    <span class="hidden-xs">Vehicle Info</span>
+                </a>
+                <!-- vehicle info button -->
+
+                <!-- columns menu -->
+                <div class="btn-group">
+
+                    <a class="btn btn-default navbar-btn dropdown dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <span class="hidden-xs">Columns</span>
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showDateColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showDateColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showDateColumn"></span>
+                                Date
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showOdometerColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showOdometerColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showOdometerColumn"></span>
+                                Odometer
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showDescriptionColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showDescriptionColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showDescriptionColumn"></span>
+                                Description
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showCountColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showCountColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showCountColumn"></span>
+                                Count
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showCostColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showCostColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showCostColumn"></span>
+                                Cost
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="" ng-click="toggleColumn($event, 'showNotesColumn')">
+                                <span class="glyphicon  glyphicon-check" ng-show="settings.showNotesColumn"></span>
+                                <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showNotesColumn"></span>
+                                Notes
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- columns menu -->
+
+                <a class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    <span class="hidden-xs">Refresh</span>
+                </a>
+
+                <!-- setting menu item -->
+                <div class="btn-group">
+
+                    <a class="btn btn-default navbar-btn dropdown dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        <span class="hidden-xs">Settings</span>
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <!-- use custom navbar in header -->
+                        <li>
+                            <a href="">
+                                <div ng-click="settings.useAlternativeUI = !settings.useAlternativeUI">
+                                    <span class="glyphicon glyphicon-check" ng-show="settings.useAlternativeUI"></span>
+                                    <span class="glyphicon glyphicon-unchecked" ng-show="!settings.useAlternativeUI"></span>
+                                    Use Alternative UI
+                                </div>
+                            </a>
+                        </li>
+                        <!-- use custom navbar in header -->
+
+                        <!-- use inverted navbar -->
+                        <li>
+                            <a href="">
+                                <div ng-click="settings.useInvertedNavbar = !settings.useInvertedNavbar">
+                                    <span class="glyphicon glyphicon-check" ng-show="settings.useInvertedNavbar"></span>
+                                    <span class="glyphicon glyphicon-unchecked" ng-show="!settings.useInvertedNavbar"></span>
+                                    Use Inverted Navbar
+                                </div>
+                            </a>
+                        </li>
+                        <!-- use inverted navbar -->
+
+                        <!-- about menu -->
+                        <li>
+                            <a href="" data-toggle="modal" data-target="#aboutModal">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                                About Program...
+                            </a>
+                        </li>
+                        <!-- about menu -->
+
+                    </ul>
+
+                </div>
+                <!-- settings menu item -->
+
+            </div>
+
+            <div class="pull-right">
+                <a class="btn btn-danger navbar-btn" ng-click="logoutClick()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span class="hidden-xs hidden-sm">Logout</span>
+                    <span class="hidden-xs hidden-sm"> [ {{session.username}} ] </span>
+                </a>
+            </div>
+
+        </div>
+        <!-- toolbar on collapsed header -->
+
+        <!-- collapse button -->
+        <button class="navbar-toggle" ng-hide="settings.useAlternativeUI" data-toggle="collapse" data-target="#collapsible-header">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <!-- collapse button -->
+
+    </div>
+    <!-- navbar header -->
+
+    <!-- toolbar on collapsible panel -->
+    <div id="collapsible-header" ng-hide="settings.useAlternativeUI" class="collapse navbar-collapse">
+
+        <!-- left toolbar -->
+        <ul ng-hide="settings.useAlternativeUI" class="nav navbar-nav navbar-left pad-l-4px">
+
+            <!--new event-->
+            <li>
+                <a href="" ng-click="newEventClick()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    New Event
+                </a>
+            </li>
+            <!--new event-->
+
+            <!-- vehicle info-->
+            <li>
+                <a href="" data-toggle="modal" data-target="#vehicleDataModal">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    Vehicle Info
+                </a>
+            </li>
+            <!-- vehicle info-->
+
+            <!--show columns menu-->
+            <li class="dropdown" >
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+
+                    <span class="glyphicon glyphicon-list"></span>
+                    <span class="">Columns</span>
+                    <span class="caret"></span>
+
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showDateColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showDateColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showDateColumn"></span>
+                            Date
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showOdometerColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showOdometerColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showOdometerColumn"></span>
+                            Odometer
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showDescriptionColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showDescriptionColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showDescriptionColumn"></span>
+                            Description
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showCountColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showCountColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showCountColumn"></span>
+                            Count
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showCostColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showCostColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showCostColumn"></span>
+                            Cost
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" ng-click="toggleColumn($event, 'showNotesColumn')">
+                            <span class="glyphicon  glyphicon-check" ng-show="settings.showNotesColumn"></span>
+                            <span class="glyphicon  glyphicon-unchecked" ng-hide="settings.showNotesColumn"></span>
+                            Notes
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <!--show columns menu-->
+
+            <!--refresh -->
+            <li ng-click="refresh()">
+                <a href="">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    Refresh
+                </a>
+            </li>
+            <!--refresh-->
+
+            <!-- settings menu item -->
+            <li class="dropdown">
+
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    Settings
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+
+                    <!-- use alternative UI menu -->
+                    <li>
+                        <a href="">
+                            <div ng-click="settings.useAlternativeUI = !settings.useAlternativeUI">
+                                <span class="glyphicon glyphicon-check" ng-show="settings.useAlternativeUI"></span>
+                                <span class="glyphicon glyphicon-unchecked" ng-show="!settings.useAlternativeUI"></span>
+                                Use Alternative UI
+                            </div>
+                        </a>
+                    </li>
+                    <!-- use alternative UI menu -->
+
+                    <!-- use inverted toolbar -->
+                    <li>
+                        <a href="">
+                            <div ng-click="settings.useInvertedNavbar = !settings.useInvertedNavbar">
+                                <span class="glyphicon glyphicon-check" ng-show="settings.useInvertedNavbar"></span>
+                                <span class="glyphicon glyphicon-unchecked" ng-show="!settings.useInvertedNavbar"></span>
+                                Use Inverted Navbar
+                            </div>
+                        </a>
+                    </li>
+                    <!-- use inverted toolbar -->
+
+                    <!-- about menu -->
+                    <li>
+                        <a href="" data-toggle="modal" data-target="#aboutModal">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                            About Program...
+                        </a>
+                    </li>
+                    <!-- about menu -->
+
+                </ul>
+
+            </li>
+            <!-- settings menu item -->
+
+        </ul>
+        <!-- left toolbar -->
+
+        <!-- right toolbar -->
+        <ul ng-hide="settings.useAlternativeUI" class="nav navbar-nav navbar-right pad-l-4px">
+
+            <!-- logout menu item -->
+            <li ng-click="logoutClick()">
+                <a href="" >
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Logout
+                    <span class="hidden-sm"> [ {{session.username}} ] </span>
+                </a>
+            </li>
+            <!-- logout menu item -->
+
+        </ul>
+        <!-- right toolbar -->
+
+    </div>
+    <!-- toolbar on collapsible panel -->
+
+</nav>
+<!-- application header -->
+
+<!-- log event table -->
+<table id="log" class="table table-bordered table-hover table-condensed">
+    <thead>
+    <tr>
+        <th ng-show="settings.showDateColumn" title="Date of event">Date</th>
+        <th ng-show="settings.showOdometerColumn" title="Odometer reading when event occurred">ODO</th>
+        <th ng-show="settings.showDescriptionColumn" title="Event description">Description</th>
+        <th ng-show="settings.showCountColumn" title="Count">Count</th>
+        <th ng-show="settings.showCostColumn" title="Total expenses">Cost</th>
+        <th ng-show="settings.showNotesColumn" title="Additional info">Notes</th>
+    </tr>
+    </thead>
+
+    <tbody ng-show="model.log.length !== 0">
+    <tr ng-repeat="(key, event) in model.log.events track by event._id">
+        <td ng-show="settings.showDateColumn">{{event.date | date : settings.dateFormat }}</td>
+        <td ng-show="settings.showOdometerColumn">{{event.odometer | distance}}</td>
+        <td ng-show="settings.showDescriptionColumn">{{event.description}}</td>
+        <td ng-show="settings.showCountColumn">{{event.count}}</td>
+        <td ng-show="settings.showCostColumn">{{event.cost | currencyUA}}</td>
+        <td ng-show="settings.showNotesColumn">{{event.notes}}</td>
+    </tr>
+    </tbody>
+
+    <!-- no records body -->
+    <tbody ng-show="model.log.length === 0">
+        <tr>
+            <td class="text-muted text-center" colspan="99">
+                <i>no records made yet</i>
+            </td>
+        </tr>
+    </tbody>
+    <!-- no records body -->
+
+</table>
+<!-- log event table -->
