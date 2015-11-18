@@ -39,7 +39,7 @@
 
             function insertSuccess(response) {
                 // insert success close dialog
-                $scope.cancelClick();
+                $scope.closeClick();
                 $log.info(response);
             }
 

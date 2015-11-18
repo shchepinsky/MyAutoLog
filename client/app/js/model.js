@@ -8,10 +8,13 @@
         function ($http, $log, settings, authenticator) {
 
             var model = {};
-            model.log = { events: {} };
+            model.log = {events: {}};
             model.log.get = logGet;
             model.log.post = logPost;
-            model.vehicle = { data: {} };
+            model.log.put = logPut;
+            model.log.delete = logDelete;
+
+            model.vehicle = {data: {}};
             model.vehicle.get = vehicleGet;
             model.vehicle.post = vehiclePost;
 
@@ -38,14 +41,14 @@
 
             }
 
-            function vehiclePost(header, successCallback, failureCallback) {
-                if (!header) {
-                    var err = 'Header not must be ' + header;
+            function vehiclePost(vehicleData, successCallback, failureCallback) {
+                if (!vehicleData) {
+                    var err = 'Header not must be ' + vehicleData;
                     $log.error(err);
                     return failureCallback(err);
                 }
 
-                $http.post(settings.API_VEHICLE_URL, header).then(postSuccess, postFailure);
+                $http.post(settings.API_VEHICLE_URL, vehicleData).then(postSuccess, postFailure);
 
                 function postSuccess(response) {
                     // insert data locally
@@ -82,9 +85,16 @@
             }
 
             function logPost(event, successCallback, failureCallback) {
+                var err;
 
                 if (!event) {
-                    var err = 'Event not must be ' + event;
+                    err = 'Event not must be ' + event;
+                    $log.error(err);
+                    return failureCallback(err);
+                }
+
+                if (event._id) {
+                    err = 'Post request must not contain _id field';
                     $log.error(err);
                     return failureCallback(err);
                 }
@@ -93,15 +103,72 @@
 
                 function postSuccess(response) {
                     // insert data locally
-                    event._id = response.data;
+                    event._id = response.data._id;
                     model.log.events[event._id] = event;
 
-                    var message = 'inserted event with _id: ' + event._id;
-                    successCallback(message);
+                    successCallback(response.message);
                 }
 
                 function postFailure(response) {
                     $log.error(response);
+                    failureCallback(response);
+                }
+
+            }
+
+            function logPut(event, successCallback, failureCallback) {
+                var message;
+
+                if (!event) {
+                    var err = 'Event not must be ' + event;
+                    $log.error(err);
+                    return failureCallback(err);
+                }
+
+                if (!event._id) {
+                    message = 'Event id must be provided to update existing event';
+                    $log.error(message);
+                    return failureCallback(message);
+                }
+
+                $http.put(settings.API_LOG_URL, event).then(putSuccess, putFailure);
+
+                function putSuccess(response) {
+                    // change data locally
+                    model.log.events[event._id] = event;
+                    var message = 'updated event with _id: ' + response._id;
+
+                    successCallback(message);
+                }
+
+                function putFailure(response) {
+                    $log.error(response);
+                    failureCallback(response);
+                }
+
+            }
+
+            function logDelete(event, successCallback, failureCallback) {
+                if (!event) {
+                    var err = 'Event must not be ' + event;
+                    $log.error(err);
+                    return failureCallback(err);
+                }
+
+                var config = {
+                    data: event,
+                    headers: {"Content-Type": "application/json;charset=utf-8"}
+                };
+
+                $http.delete(settings.API_LOG_URL, config).then(deleteSuccess, deleteFailure);
+
+                function deleteSuccess(response) {
+                    $log.info(response.message);
+                    successCallback(response);
+                }
+
+                function deleteFailure(response) {
+                    $log.error(response.message);
                     failureCallback(response);
                 }
 

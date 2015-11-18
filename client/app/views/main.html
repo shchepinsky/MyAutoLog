@@ -2,6 +2,10 @@
 <div ng-include="'views/newEvent.html'"></div>
 <!-- new event modal -->
 
+<!-- edit event modal -->
+<div ng-include="'views/editEvent.html'"></div>
+<!-- edit event modal -->
+
 <!-- vehicle data modal -->
 <div ng-include="'views/vehicleData.html'"></div>
 <!-- vehicle data modal -->
@@ -369,7 +373,8 @@
     </thead>
 
     <tbody ng-show="model.log.length !== 0">
-    <tr ng-repeat="(key, event) in model.log.events track by event._id">
+    <tr ng-repeat="(key, event) in model.log.events track by event._id" ng-click="editEventClick(event)">
+
         <td ng-show="settings.showDateColumn">{{event.date | date : settings.dateFormat }}</td>
         <td ng-show="settings.showOdometerColumn">{{event.odometer | distance}}</td>
         <td ng-show="settings.showDescriptionColumn">{{event.description}}</td>

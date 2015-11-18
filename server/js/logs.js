@@ -1,5 +1,6 @@
 "use strict";
 
+var ObjectId = require('mongodb').ObjectId;
 var db = require('./db');
 var logs = {};
 
@@ -98,5 +99,58 @@ logs.postUserLog = function(username, event, callback) {
             callback(null, opResult);
         }
 
+    }
+};
+
+logs.putUserLog = function(username, event, callback) {
+
+    db.getCollection(username + '.log', processCollection);
+
+    function processCollection(err, collection) {
+        if (err) {
+            db.close();
+            return callback(err);
+        }
+
+        if (!event._id || !ObjectId.isValid(event._id)) return callback('can not update event - no valid id provided');
+
+        // reconstruct objects from string representation
+        event._id = new ObjectId(event._id);
+        event.date = new Date(event.date);
+
+        var filter = { _id: event._id };
+
+        collection.replaceOne(filter, event, processInsertResult);
+        function processInsertResult(err, opResult) {
+            if (err) return callback(err);
+
+            callback(null, opResult);
+        }
+
+    }
+};
+
+logs.deleteLogEvent = function (username, event, callback) {
+    db.getCollection(username + '.log', processCollection);
+
+    function processCollection(err, collection) {
+        if (err) {
+            db.close();
+            return callback(err);
+        }
+
+        // reconstruct objects from strings
+        event._id = new ObjectId(event._id);
+        event.date = new Date(event.date);
+
+        collection.remove(event, processRemoveResult);
+        function processRemoveResult(err, opResult) {
+            if (err) {
+                db.close();
+                return callback(err);
+            }
+
+            callback(null, opResult);
+        }
     }
 };

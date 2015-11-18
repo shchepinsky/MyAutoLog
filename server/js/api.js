@@ -10,7 +10,7 @@ var logs = require('./logs');
 var router = express.Router();
 
 // protect entire /api branch with token
-router.use('/api', jwt({secret: tokens.secret}), function(req, res, next) {
+router.use('/api', jwt({secret: tokens.secret}), function (req, res, next) {
 
     if (!req.user) {
         var message = 'Token required for access! Please log in first!';
@@ -45,7 +45,46 @@ router.post('/api/log', function (req, res) {
     function processPostResult(err, opResult) {
         if (err) return res.status(500).send(err);
 
-        res.send(opResult.insertedId.toHexString());
+        var data = {
+            ops: opResult.insertedId.toHexString(),
+            message: 'inserted event ' + JSON.stringify(opResult.ops)
+        };
+
+        res.send(data);
+    }
+});
+
+router.put('/api/log', function (req, res) {
+    // find username in req.user.sub
+    // make database log name using username.log
+    // update event in database
+
+    logs.putUserLog(req.user.sub, req.body, processPostResult);
+    function processPostResult(err, opResult) {
+        if (err) return res.status(500).send(err);
+
+        var data = {
+            _id: opResult.ops[0]._id.toHexString(),
+            message: 'modified events: ' + opResult.ops[0]._id.toHexString()
+        };
+
+        res.send(data);
+    }
+});
+
+router.delete('/api/log', function (req, res) {
+
+    logs.deleteLogEvent(req.user.sub, req.body, processDeleteResult);
+
+    function processDeleteResult(err, opResult) {
+        if (err) return res.status(500).send(err);
+
+        var data = {
+            _id: req.body._id,
+            message: 'event deleted: ' + req.body._id
+        };
+
+        res.send(data);
     }
 });
 

@@ -39,6 +39,13 @@
                     $('#newEventModal').modal('show');
                 };
 
+                $scope.editEventClick = function (event) {
+                    var editEventModal = $('#editEventModal');
+
+                    editEventModal.attr('eventId', event._id);
+                    editEventModal.modal('show');
+                };
+
                 $scope.logoutClick = function () {
 
                     if (confirm('Are you sure want to logout?')) {
