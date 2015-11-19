@@ -3,8 +3,7 @@
 var log = require('morgan');
 var fs = require('fs');
 var path = require('path');
-var bCrypt = require('bcrypt-nodejs');
-var crypto = require('crypto');
+var bCrypt = require('bcrypt');
 var ObjectId = require('mongodb').ObjectId;
 var db = require('./db');
 
@@ -48,15 +47,28 @@ users.findOneByName = function (username, callback) {
     }
 };
 
-users.create = function (username, password, callback) {
+users.isPasswordValid = function (user, password, callback) {
+    // password arrives in clear text, but stored in hashed form
+    bCrypt.compare(password, user.password, callback);
+};
+
+users.createHash = function (password, callback) {
 
     // TODO: store passwords encrypted
     // TODO: use Salt for better security
 
-    //console.log(bCrypt.hashSync(password, bCrypt.genSaltSync(10), null));
-    //console.log(crypto.createHash('md5').update(password).digest('base64'));
+    bCrypt.genSalt(10, function (err, salt) {
+        if (err) return callback(err);
 
-    var user = {'username': username, 'password': password};
+        bCrypt.hash(password, salt, function (err, hash) {
+            if (err) return callback(err);
+
+            callback(null, hash);
+        });
+    });
+};
+
+users.create = function (username, password, callback) {
 
     users.findOneByName(username, processUser);
 
@@ -67,19 +79,27 @@ users.create = function (username, password, callback) {
         // if user already exists - return null, null
         if (user) return callback(null, null);
 
-        db.getCollection('users', insertUser);
+        db.getCollection('users', processUsersCollection);
     }
 
-    function insertUser(err, collection) {
+    function processUsersCollection(err, collection) {
         if (err) return callback(err);
 
-        collection.insert(user, processInsertUserResult);
-        function processInsertUserResult(err) {
+        users.createHash(password, processHash);
+        function processHash(err, hash) {
             if (err) return callback(err);
 
-            console.log('user created: ', user.username);
-            callback(null, user);
+            var user = {'username': username, 'password': hash};
+
+            collection.insert(user, processInsertUserResult);
+            function processInsertUserResult(err) {
+                if (err) return callback(err);
+
+                console.log('user created: ', user.username);
+                callback(null, user);
+            }
         }
+
     }
 
 
@@ -106,11 +126,6 @@ users.findOneByID = function (id, callback) {
         });
 
     }
-};
-
-
-users.isValidPassword = function (user, password) {
-    return password === user.password;
 };
 
 users.usernameObeysPolicy = function (username) {

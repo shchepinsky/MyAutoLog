@@ -47,7 +47,7 @@ passport.use('local-login',
 function localLogin(req, username, password, done) {
     users.findOneByName(username, findCallback);
 
-    function findCallback (err, user) {
+    function findCallback(err, user) {
         if (err) {
             req.flash('error', err);
             return done(err);
@@ -58,12 +58,18 @@ function localLogin(req, username, password, done) {
             return done(null, false);
         }
 
-        if (users.isValidPassword(user, password)) {
-            return done(null, user);
-        } else {
-            req.flash('message', 'invalid password');
-            return done(null, false);
-        }
+        users.isPasswordValid(user, password, function (err, valid) {
+            if (err) {
+                req.flash('error', 'error validating password');
+                return done(null, false);
+            }
+
+            if (valid) {
+                return done(null, user)
+            } else {
+                return done(null, false);
+            }
+        });
     }
 }
 

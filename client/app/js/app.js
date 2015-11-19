@@ -38,8 +38,14 @@
 
             // protecting app routes
             // if not authenticated and no stored session - redirect to login page
-            if (!authenticator.authenticated || !authenticator.restoreSession()) {
-                $location.path('/login');
+            switch ($location.path()) {
+                case '/register':   // register route is unprotected
+                case '/login':      // login route is unprotected as well
+                    break;
+                default:            // other routes are protected and redirecting to login
+                    if (!authenticator.isAuthenticated() || !authenticator.restoreSession()) {
+                    $location.path('/login');
+                }
             }
 
         });

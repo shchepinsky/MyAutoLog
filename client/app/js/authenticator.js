@@ -20,7 +20,7 @@
                 }
             };
 
-            function authenticated() {
+            function isAuthenticated() {
                 return session.username && session.token;
             }
 
@@ -34,7 +34,7 @@
                     $http.defaults.headers.common.Authorization = 'Bearer ' + session.token;
                 }
 
-                return authenticated();
+                return isAuthenticated();
             }
 
             function login(username, password) {
@@ -110,7 +110,7 @@
                 register: register,
                 logout: logout,
                 login: login,
-                authenticated: authenticated,
+                isAuthenticated: isAuthenticated,
                 restoreSession: restoreSession,
 
                 session: session
