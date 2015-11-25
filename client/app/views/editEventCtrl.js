@@ -7,16 +7,21 @@
     app.controller('EditEventCtrl', ['$scope', '$log', 'model', constructor]);
     function constructor($scope, $log, model) {
 
-        // cache DOM
+        // it is good practice to cache DOM query
         var editEventModal = $('#editEventModal');
 
         editEventModal.on('show.bs.modal', onShowHandler);
         function onShowHandler(){
             // create temp edit object
-            $scope.edit = {};
+            $scope.clear();
 
-            // extract unique _id from table row attribute
+            // unique id is assigned by callee to indicate which event to edit
+            // no unique id means a new item will be created
             $scope.edit._id = editEventModal.attr('eventId');
+
+            // id attribute should be removed, once modal dialog is open
+            editEventModal.removeAttr('eventId');
+
 
             if ($scope.edit._id) {
                 // copy source event to temp edit object
@@ -47,8 +52,14 @@
                 alert(response);
             }
 
-            model.log.delete($scope.edit, deleteSuccess, deleteFailure);
+            var filter = {
+                _id: $scope.edit._id
+            };
 
+            model.log.delete(filter, deleteSuccess, deleteFailure);
+
+            // close modal since item is deleted
+            $scope.closeClick();
         };
 
         $scope.saveClick = function() {
@@ -62,7 +73,6 @@
                 // insert new
                 model.log.post($scope.edit, insertSuccess, insertFailure);
             }
-
 
             function insertSuccess(response) {
                 // insert success close dialog

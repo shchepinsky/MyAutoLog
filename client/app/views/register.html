@@ -8,7 +8,7 @@
     <div class="row">
         <h2 class="text-center">Register New Account</h2>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
 
             <!-- username -->
             <input class="form-control"
@@ -26,7 +26,7 @@
 
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
 
             <!-- password -->
             <input class="form-control"
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
 
             <!-- confirm password -->
             <input class="form-control"
@@ -65,7 +65,7 @@
 
         <!-- submit button -->
         <div class="col-xs-6">
-            <button class="btn btn-success" name="registerButton"
+            <button class="btn btn-success btn-block" name="registerButton"
                     data-ng-disabled="form.$invalid" ng-click="registerClick()">
                 Register
             </button>
@@ -74,7 +74,7 @@
 
         <!-- cancel button -->
         <div class="col-xs-6">
-            <button class="btn btn-primary col-xs-6" name="cancelButton"
+            <button class="btn btn-primary btn-block" name="cancelButton"
                     ng-click="cancelClick()">
                 Cancel
             </button>

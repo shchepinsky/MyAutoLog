@@ -36,7 +36,7 @@
                 };
 
                 $scope.newEventClick = function () {
-                    $('#newEventModal').modal('show');
+                    $('#editEventModal').modal('show');
                 };
 
                 $scope.editEventClick = function (event) {

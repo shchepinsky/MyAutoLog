@@ -91,6 +91,8 @@ logs.postUserLog = function(username, event, callback) {
             return callback(err);
         }
 
+        event.date = new Date(event.date);
+
         collection.insertOne(event, processInsertResult);
 
         function processInsertResult(err, opResult) {
@@ -141,7 +143,10 @@ logs.deleteLogEvent = function (username, event, callback) {
 
         // reconstruct objects from strings
         event._id = new ObjectId(event._id);
-        event.date = new Date(event.date);
+
+        if (event.date) {
+            event.date = new Date(event.date);
+        }
 
         collection.remove(event, processRemoveResult);
         function processRemoveResult(err, opResult) {

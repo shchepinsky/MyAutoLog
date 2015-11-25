@@ -1,8 +1,8 @@
 (function () {
     'use strict';
 
-    app.factory('authenticator', ['$cookies', '$log', '$q', '$http',
-        function ($cookies, $log, $q, $http) {
+    app.factory('authenticator', ['$cookies', '$log', '$q', '$http', 'facebook',
+        function ($cookies, $log, $q, $http, facebook) {
 
             var session = {
                 username: undefined,
@@ -19,6 +19,17 @@
                     $cookies.remove('token');
                 }
             };
+
+            function initializeSession(response) {
+                // store session data
+                session.username = response.data.username;
+                session.token = response.data.token;
+
+                // save token to header for subsequent requests and cookie
+                $http.defaults.headers.common.Authorization = 'Bearer ' + session.token;
+                $cookies.put('username', session.username);
+                $cookies.put('token', session.token);
+            }
 
             function isAuthenticated() {
                 return session.username && session.token;
@@ -37,13 +48,18 @@
                 return isAuthenticated();
             }
 
+            // TODO: use common initializeSession instead of duplicate code in body
             function login(username, password) {
 
                 var deferred = $q.defer();
 
                 $log.info('attempt to login as ' + username);
 
-                var data = {'username': username, 'password': password};
+                var data = {
+                    'username': username,
+                    'password': password
+                };
+
                 $http.post('./login', data).then(success, failure);
 
                 function success(response) {
@@ -73,6 +89,62 @@
 
                 return deferred.promise;
 
+            }
+
+            function loginFacebook() {
+                var deferred = $q.defer();
+
+                $log.info('Facebook login attempted');
+                facebook.login().then(facebookLoginSuccess, facebookLoginFailure);
+
+                function facebookLoginSuccess(profile) {
+                    $log.debug(JSON.stringify(profile));
+
+                    var data = {
+                        'username': profile.userID,
+                        'password': profile.accessToken
+                    };
+
+                    $http.post('./login/facebook', data).then(success, failure);
+
+                    function success(response) {
+                        // TODO: server returns standard data - remove code duplicates with login-local
+                        $log.debug('login facebook success: ' + response.data.message);
+
+                        // store session data
+                        session.username = response.data.username;
+                        session.token = response.data.token;
+
+                        // save token to header for subsequent requests and cookie
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + session.token;
+                        $cookies.put('username', session.username);
+                        $cookies.put('token', session.token);
+
+                        // resolve with authenticated user
+                        deferred.resolve(response);
+                    }
+
+                    function failure(response) {
+                        var message = 'Status ' + response.status + ' - ' + response.data;
+
+                        session.clear();
+
+                        // reject with error message
+                        deferred.reject(message);
+                    }
+
+                }
+
+                function facebookLoginFailure(response) {
+                    var message = 'Status ' + response.status + ' - ' + response.data;
+
+                    session.clear();
+
+                    // reject with error message
+                    deferred.reject(message);
+                }
+
+                return deferred.promise;
             }
 
             function logout() {
@@ -110,6 +182,7 @@
                 register: register,
                 logout: logout,
                 login: login,
+                loginFacebook: loginFacebook,
                 isAuthenticated: isAuthenticated,
                 restoreSession: restoreSession,
 

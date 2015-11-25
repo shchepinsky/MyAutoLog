@@ -117,18 +117,18 @@
             }
 
             function logPut(event, successCallback, failureCallback) {
-                var message;
+                var err;
 
                 if (!event) {
-                    var err = 'Event not must be ' + event;
+                    err = 'Event must be be provided, but got ' + event;
                     $log.error(err);
                     return failureCallback(err);
                 }
 
                 if (!event._id) {
-                    message = 'Event id must be provided to update existing event';
-                    $log.error(message);
-                    return failureCallback(message);
+                    err = 'Event id must be provided to update existing event';
+                    $log.error(err);
+                    return failureCallback(err);
                 }
 
                 $http.put(settings.API_LOG_URL, event).then(putSuccess, putFailure);

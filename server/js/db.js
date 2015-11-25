@@ -1,6 +1,8 @@
 /**
  * Created by sdv on 11/12/15.
  */
+"use strict";
+
 var client = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var url = 'mongodb://localhost:27017/MyAutoLog';

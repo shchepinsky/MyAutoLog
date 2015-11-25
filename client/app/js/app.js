@@ -43,7 +43,7 @@
                 case '/login':      // login route is unprotected as well
                     break;
                 default:            // other routes are protected and redirecting to login
-                    if (!authenticator.isAuthenticated() || !authenticator.restoreSession()) {
+                    if (!authenticator.isAuthenticated() && !authenticator.restoreSession()) {
                     $location.path('/login');
                 }
             }

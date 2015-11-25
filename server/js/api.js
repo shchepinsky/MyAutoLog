@@ -79,6 +79,8 @@ router.delete('/api/log', function (req, res) {
     function processDeleteResult(err, opResult) {
         if (err) return res.status(500).send(err);
 
+        console.log(opResult.result);
+
         var data = {
             _id: req.body._id,
             message: 'event deleted: ' + req.body._id

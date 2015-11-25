@@ -5,25 +5,47 @@
 <!-- login form -->
 <form id="login-form" novalidate class="center-block" name="form">
 
-    <h2 class="text-center">Please log in</h2>
+    <div class="row">
 
-    <!-- form-group adds spacing-->
-    <div class="form-group">
-        <input class="form-control" required ng-model="username" type="text" placeholder="username">
+        <h2 class="text-center">Please log in</h2>
+
+        <!-- form-group adds spacing-->
+        <div class="form-group col-xs-12">
+            <input class="form-control" required ng-model="username" type="text" placeholder="username">
+        </div>
+
+        <!-- form-group adds spacing-->
+        <div class="form-group col-xs-12">
+            <input class="form-control" required ng-model="password" type="password" placeholder="password">
+        </div>
+
+        <div class="col-xs-6">
+            <a class="btn btn-success btn-block" ng-disabled="form.$invalid" ng-click="loginClick()">
+                Log In
+            </a>
+        </div>
+
+        <div class="col-xs-6">
+            <a class="btn btn-primary btn-block" href="#/register">
+                Register
+            </a>
+        </div>
+
+        <!-- $scope in controller must have response property -->
+        <p class="text-danger text-center">{{response}}</p>
+
+        <div class="form-group col-xs-12">
+
+            <hr/>
+            <h4 class="text-center text-muted">or use Facebook account</h4>
+
+            <a class="btn btn-primary btn-block" ng-click="loginFacebook()">
+                <img src="../img/facebook-logo.png" height="20px">
+                Login via Facebook
+            </a>
+
+        </div>
+
     </div>
-
-    <!-- form-group adds spacing-->
-    <div class="form-group">
-        <input class="form-control" required ng-model="password" type="password" placeholder="password">
-    </div>
-
-    <button class="btn btn-success btn-block" ng-disabled="form.$invalid" ng-click="loginClick()">
-        Log In
-    </button>
-
-    <a class="btn btn-primary btn-block" href="#/register">Register</a>
-
-    <!-- $scope in controller must have response property -->
-    <p class="text-danger text-center">{{response}}</p>
 </form>
 <!-- login form -->
