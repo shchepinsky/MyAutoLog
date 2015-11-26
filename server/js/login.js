@@ -31,24 +31,33 @@ router.get('/register/failure', function (req, res) {
 });
 // registration routes
 
-function makeLoginSuccessResponse(username) {
+function makeLoginSuccessResponse(user) {
     console.log('makeLoginSuccessResponse');
+
+    var client = user.firstName && user.lastName
+        ? user.firstName + ', ' + user.lastName
+        : user.username;
+
     // return response with token
     var payload = {
         iss: 'MyAutoLogger',        // issues of token - my application
-        sub: username          // subject - token user
+        sub: user.username          // subject - token user
     };
 
     var token = jwt.sign(payload, tokens.secret);
 
     var response = {
-        'username': username,
+        'username': user.username,
+        'firstName': user.firstName,
+        'lastName': user.lastName,
         'success': true,
-        'message': 'Welcome, ' + username + '!',
+        'message': 'Welcome, ' + client + '!',
         'token': token
     };
 
-    console.log('Token issued to: ' + username);
+
+
+    console.log('Token issued to: ' + client);
 
     return response;
 }
@@ -58,24 +67,7 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect: '/login/fail'
 }), function (req, res) {
 
-    var response = makeLoginSuccessResponse(req.user.username);
-
-/*
-    // return response with token
-    var payload = {
-        iss: 'MyAutoLogger',        // issues of token - my application
-        sub: req.user.username         // subject - token user
-    };
-
-    var token = jwt.sign(payload, tokens.secret);
-
-    var response = {
-        username: req.user.username,
-        success: true,
-        message: 'Welcome, ' + req.user.username + '!',
-        token: token
-    };
-*/
+    var response = makeLoginSuccessResponse(req.user);
 
     console.log('Token issued to: ' + req.user.username);
 
@@ -89,7 +81,7 @@ router.get('/login/fail', function (req, res) {
 // login routes
 
 
-// TODO: use Q promises to make control flow more concise
+// TODO: use Q promises to make control flow more concise?
 //login via facebook routes
 router.post('/login/facebook', function (req, res) {
     console.log('router.post(/login/facebook');
@@ -106,10 +98,14 @@ router.post('/login/facebook', function (req, res) {
         if (err) return res.status(500).send(err);
 
         if (user) {
-            // check if stored password (token) matches provided accessToken
-            // we can  not use users.isPasswordValid because token is too long
 
-            // var valid = req.body.password === user.password;
+            // TODO: users.isPasswordValid will always fail
+            // can not store tokens as password due to bCrypt length limitation of 55 bytes
+            // checking non-hashed token against it's hash fails and this results in Facebook API query
+            // to confirm token validity.
+            //
+            // As a workaround tokens can be stored non-hashed and simply checked for equality against
+            // user-provided tokens like: var valid = req.body.password === user.password;
 
             users.isPasswordValid(user, req.body.password, function(err, valid) {
                if (err) return res.status(500).send(err);
@@ -120,7 +116,7 @@ router.post('/login/facebook', function (req, res) {
                     // user has valid token stored - no need to contact Facebook
                     // return login ok with user info
 
-                    var response = makeLoginSuccessResponse(user.username);
+                    var response = makeLoginSuccessResponse(user);
 
                     return res.send(response);
                 } else {
@@ -148,7 +144,7 @@ router.post('/login/facebook', function (req, res) {
                             if (err) return res.status(500).send(err);
                             if (!user) return res.status(500).send('upsert user failed');
 
-                            var response = makeLoginSuccessResponse(user.username);
+                            var response = makeLoginSuccessResponse(user);
 
                             res.send(response);
                         });
@@ -182,7 +178,7 @@ router.post('/login/facebook', function (req, res) {
                     if (err) return res.status(500).send(err);
                     if (!user) return res.status(500).send('upsert user failed');
 
-                    var response = makeLoginSuccessResponse(user.username);
+                    var response = makeLoginSuccessResponse(user);
 
                     res.send(response);
                 });

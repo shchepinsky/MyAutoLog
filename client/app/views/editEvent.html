@@ -73,20 +73,21 @@
             <div class="modal-footer">
 
                 <!-- save button -->
-                <button class="btn btn-primary" ng-click="deleteClick()" ng-show="edit._id" ng-disabled="form.$invalid">
+                <button class="btn btn-danger" ng-click="deleteClick()" ng-show="edit._id" ng-disabled="form.$invalid">
                     Delete
                 </button>
                 <!-- save button -->
 
 
                 <!-- save button -->
-                <button class="btn btn-primary" ng-click="saveClick()" ng-disabled="form.$invalid">
+                <button class="btn btn-success"
+                        ng-click="saveClick()" data-ng-disabled="form.$invalid || form.$pristine">
                     Save
                 </button>
                 <!-- save button -->
 
                 <!-- close button -->
-                <button class="btn btn-default" ng-click="closeClick()">
+                <button class="btn btn-primary" ng-click="closeClick()">
                     Close
                 </button>
                 <!-- close button -->

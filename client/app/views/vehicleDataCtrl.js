@@ -16,15 +16,16 @@
         $('#vehicleDataModal').on('show.bs.modal', onShowHandler);
         function onShowHandler() {
 
+            $scope.clear();
+
             // get vehicle data
             model.vehicle.get(processGetSuccess, processGetFailure);
 
             function processGetSuccess(reason) {
                 $log.info(reason);
 
-                // create temp object for editing using stringify/parse
-                var jsonClone = JSON.stringify(model.vehicle.data);
-                $scope.edit = JSON.parse(jsonClone);
+                // copy source event to temp edit object
+                angular.extend($scope.edit, model.vehicle.data);
 
                 // reconstruct Date objects because Angular does not
                 // allow date strings in ng-model anymore:
@@ -38,8 +39,6 @@
                 $log.error(reason);
                 alert(reason);
             }
-
-
         }
 
         $scope.saveClick = function () {
@@ -57,7 +56,11 @@
                 $log.error(response);
                 alert(response);
             }
-        }
+        };
+
+        $scope.clear = function () {
+            $scope.edit = {};
+        };
     }
 
 }());

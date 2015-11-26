@@ -106,10 +106,14 @@
 
             <!-- modal footer -->
             <div class="modal-footer">
-                <button ng-click="saveClick()" class="btn btn-primary" data-ng-disabled="form.$invalid">
+                <button class="btn btn-success"
+                        ng-click="saveClick()" data-ng-disabled="form.$invalid || form.$pristine">
                     Save
                 </button>
-                <button data-dismiss="modal" class="btn btn-primary">Close</button>
+
+                <button class="btn btn-primary" data-dismiss="modal">
+                    Close
+                </button>
             </div>
             <!-- modal footer -->
 

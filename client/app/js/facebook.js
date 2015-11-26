@@ -13,6 +13,10 @@
             });
 
             $log.info('Facebook SDK initialized');
+
+            facebook.initialized = true;
+            // or we can use jQuery to enable initially disabled button
+            // $('#facebook-login-button').removeAttr('disabled');
         };
 
         // construct script tag if not yet constructed
@@ -31,21 +35,6 @@
             $log.info('Facebook SDK script tag created')
         }
 
-
-        var profile = {
-            clear: function () {
-                $log.info('clearing facebook session of user ' + this.username);
-
-                this.username = undefined;
-                this.id = undefined;
-                this.token = undefined;
-            },
-            parse: function (response) {
-                this.id = response.userID;
-                this.token = response.accessToken;
-            }
-        };
-
         function processAuthResponse(response, deferred) {
             var profile = {};
 
@@ -54,7 +43,6 @@
 
             deferred.resolve(profile);
         }
-
 
         function login() {
             var deferred = $q.defer();
@@ -83,11 +71,13 @@
             FB.logout();
         }
 
-        return {
+        var facebook = {
             login: login,
             logout: logout,
-            profile: profile
-        }
+            initialized: false
+        };
+
+        return facebook;
     }
 
 }());

@@ -20,15 +20,16 @@
         </div>
 
         <div class="col-xs-6">
-            <a class="btn btn-success btn-block" ng-disabled="form.$invalid" ng-click="loginClick()">
+            <button class="btn btn-success btn-block" type="submit"
+                    data-ng-disabled="form.$invalid" ng-click="loginClick()">
                 Log In
-            </a>
+            </button>
         </div>
 
         <div class="col-xs-6">
-            <a class="btn btn-primary btn-block" href="#/register">
+            <button class="btn btn-primary btn-block" ng-click="registerClick()">
                 Register
-            </a>
+            </button>
         </div>
 
         <!-- $scope in controller must have response property -->
@@ -37,12 +38,13 @@
         <div class="form-group col-xs-12">
 
             <hr/>
-            <h4 class="text-center text-muted">or use Facebook account</h4>
+            <h4 class="text-center text-muted">or use social account</h4>
 
-            <a class="btn btn-primary btn-block" ng-click="loginFacebook()">
+            <button id="facebook-login-button" class="btn btn-primary btn-block"
+                    data-ng-disabled="!facebook.initialized" ng-click="loginFacebook()">
                 <img src="../img/facebook-logo.png" height="20px">
                 Login via Facebook
-            </a>
+            </button>
 
         </div>
 

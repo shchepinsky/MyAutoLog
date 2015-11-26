@@ -167,7 +167,7 @@
                 <a class="btn btn-danger navbar-btn" ng-click="logoutClick()">
                     <span class="glyphicon glyphicon-log-out"></span>
                     <span class="hidden-xs hidden-sm">Logout</span>
-                    <span class="hidden-xs hidden-sm"> [ {{session.username}} ] </span>
+                    <span class="hidden-xs hidden-sm"> [ {{session.getFullUserName()}} ] </span>
                 </a>
             </div>
 
@@ -341,7 +341,7 @@
                 <a href="" >
                     <span class="glyphicon glyphicon-log-out"></span>
                     Logout
-                    <span class="hidden-sm"> [ {{session.username}} ] </span>
+                    <span class="hidden-sm"> [ {{session.getFullUserName()}} ] </span>
                 </a>
             </li>
             <!-- logout menu item -->
