@@ -111,7 +111,7 @@ router.post('/login/facebook', function (req, res) {
                if (err) return res.status(500).send(err);
 
                 if (valid) {
-                    console.log('isPasswordValid = true');
+                    console.log('Valid token provided by user ' + user.username);
 
                     // user has valid token stored - no need to contact Facebook
                     // return login ok with user info
@@ -120,7 +120,7 @@ router.post('/login/facebook', function (req, res) {
 
                     return res.send(response);
                 } else {
-                    console.log('isPasswordValid = false');
+                    console.log('Invalid token provided by user ' + user.username + ' - checking it on Facebook');
 
                     // user provided token that is different from stored - contact Facebook to validate it
                     getFacebookProfile(req.body.password, function (err, facebookResponse) {

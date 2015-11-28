@@ -27,7 +27,7 @@
         if (!js) {
             js = document.createElement('script');
             js.id = FB_SDK_ID;
-            js.src = '//connect.facebook.net/en_US/sdk.js';
+            js.src = 'https://connect.facebook.net/en_US/sdk.js';
 
             // this loads facebook sdk by attaching it after body
             var html = document.getElementsByTagName('html')[0];

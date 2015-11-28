@@ -32,8 +32,7 @@
 
         $rootScope.$on('$locationChangeStart', function($scope, next, current) {
 
-            // we need this if we use modals
-            // close modal if any using jQuery
+            // we need to close modals if user uses back button
             $('.modal-backdrop').remove();
 
             // protecting app routes

@@ -1,7 +1,8 @@
 'use strict';
 
+var fs = require('fs');
 var express = require('express');
-var http = require('http');
+var https = require('https');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -17,11 +18,17 @@ var api = require('./api.js');
 
 app.set('view engine', 'ejs');
 
-// start server on all addresses 0.0.0.0
-var port = 8080;
-var host = '0.0.0.0';
-var server = http.createServer(app).listen(port, host, function () {
-    console.log('Server is listening: ' + host + ':' + port );
+// https server params: key and cert
+var options = {
+    key: fs.readFileSync('cert/server-key.pem'),
+    cert: fs.readFileSync('cert/server-cert.pem')
+};
+
+var PORT = 8080;
+var HOST = '0.0.0.0';
+
+var server = https.createServer(options, app).listen(PORT, HOST, function() {
+    console.log('HTTPS server started on ' + HOST + ':' + PORT);
 });
 
 // first middleware - log all requests
@@ -58,3 +65,4 @@ app.use(login);
 
 //using router to manage api routes
 app.use(api);
+

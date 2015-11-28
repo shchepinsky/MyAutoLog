@@ -3,8 +3,7 @@
 
     app.factory('settings', [function () {
 
-        //var API_SERVER = '.';
-        var API_SERVER = 'http://localhost:8080';
+        var API_SERVER = 'https://localhost:8080';
 
         return {
             // API server URL
