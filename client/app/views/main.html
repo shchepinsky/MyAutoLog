@@ -348,15 +348,46 @@
 
         </ul>
         <!-- right toolbar -->
-
     </div>
     <!-- toolbar on collapsible panel -->
-
 </nav>
 <!-- application header -->
 
+<nav class="navbar navbar-fixed-bottom"
+     ng-class="{ 'navbar-inverse' : settings.useInvertedNavbar, 'navbar-default' : !settings.useInvertedNavbar }">
+        <form class="navbar-form">
+
+        <div class="form-group">
+            <label>
+                Find
+                <input class="form-control" type="text" placeholder="pattern to match"
+                       ng-model="filter.pattern">
+            </label>
+
+            <div class="checkbox-inline">
+                <label>
+                    <input type="checkbox" ng-model="filter.useRegEx">
+                    RegEx
+                </label>
+            </div>
+        </div>
+
+            <span class="nav-divider"></span>
+
+        <div class="form-group">
+            <label>
+                Filter Category
+                <select class="form-control" ng-model="filter.category"
+                        ng-options="category for category in settings.categories">
+                </select>
+            </label>
+        </div>
+
+    </form>
+</nav>
+
 <!-- log event table -->
-<table id="log" class="table table-bordered table-hover table-condensed">
+<table id="log" class="table table-bordered table-striped table-hover table-condensed">
     <thead>
     <tr>
         <th ng-show="settings.showDateColumn" title="Date of event">Date</th>
@@ -369,8 +400,9 @@
     </thead>
 
     <tbody ng-show="model.log.length !== 0">
-    <tr ng-repeat="(key, event) in model.log.events track by event._id" ng-click="editEventClick(event)">
-
+    <tr ng-repeat="(key, event) in model.log.events track by event._id"
+        ng-show="filterEvent(event)"
+        ng-click="editEventClick(event)">
         <td ng-show="settings.showDateColumn">{{event.date | date : settings.dateFormat }}</td>
         <td ng-show="settings.showOdometerColumn">{{event.odometer | distance}}</td>
         <td ng-show="settings.showDescriptionColumn">{{event.description}}</td>

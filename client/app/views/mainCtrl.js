@@ -8,6 +8,38 @@
                 $scope.settings = settings;
                 $scope.session = authenticator.session;
                 $scope.model = model;
+                $scope.filter = { category : settings.categories[0] };
+
+                $scope.filterEvent = function (event) {
+
+                    // filter out using Find contains/regex
+                    if ($scope.filter.pattern) {
+                        var s = JSON.stringify(event);
+                        var contains = $scope.filter.pattern;
+
+                        if ($scope.filter.useRegEx) {
+                            var regex = new RegExp($scope.filter.pattern, 'i');
+
+                            if (!s.match(regex)) return false;
+                        } else {
+
+                            if (s.toLowerCase().indexOf(contains.toLowerCase()) < 0) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    // filter out using category selector
+                    if ($scope.filter.category) {
+                        var regex = new RegExp('All|' + event.category, 'i');
+
+                        if (!$scope.filter.category.match(regex) || !event.category) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                };
 
                 //$scope.session = authenticator.session;
                 $scope.refresh = function () {
@@ -54,6 +86,10 @@
                     }
 
                 };
+
+                $scope.aboutClick = function () {
+                    $("#aboutModal").modal();
+                }
             }
         ])
 

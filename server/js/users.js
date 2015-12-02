@@ -3,7 +3,7 @@
 var log = require('morgan');
 var fs = require('fs');
 var path = require('path');
-var bCrypt = require('bcrypt');
+var bCrypt = require('bcrypt-nodejs');
 var ObjectId = require('mongodb').ObjectId;
 var db = require('./db');
 
