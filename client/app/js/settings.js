@@ -3,10 +3,10 @@
 
     app.factory('settings', [function () {
 
-        var API_SERVER = 'https://localhost:8080';
+        var API_SERVER = 'https://myautologger.local:8080';
 
         return {
-            categories: ['ALL', 'FUEL', 'ADMINISTRATIVE', 'REPAIRS', 'TUNING', 'MISC'],
+            categories: ['ADMINISTRATIVE', 'FUEL', 'WASHING', 'REPAIRS', 'TUNING', 'MISC'],
             //
             registerPolicy: { passwordLength: 3, loginLength: 3 },
             // API server URL

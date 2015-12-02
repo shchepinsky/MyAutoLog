@@ -18,35 +18,52 @@
 
             <!-- modal body -->
             <div class="modal-body container-fluid">
-
                 <form name="form">
 
                     <div class="row">
-                        <label class="control-label col-xs-6">
+
+                        <!-- date -->
+                        <label class="control-label col-xs-7">
                             Event Date:
                             <input class="form-control" name="date" type="date" required
                                    ng-model="edit.date">
                         </label>
+                        <!-- date -->
 
-                        <label class="control-label col-xs-6">
+                        <!-- type -->
+                        <label class="control-label col-xs-5">
+                            Type:
+                            <select class="form-control" ng-model="edit.category"
+                                    ng-options="category for category in settings.categories">
+                            </select>
+                        </label>
+                        <!-- type -->
+
+                        <!-- odometer -->
+                        <label class="control-label col-xs-4">
                             Odometer:
                             <input class="form-control" name="odometer" type="number" required placeholder="in km"
                                    ng-model="edit.odometer">
                         </label>
+                        <!-- odometer -->
 
-
-                        <label class="control-label col-xs-6">
+                        <!-- count -->
+                        <label class="control-label col-xs-3">
                             Count:
                             <input class="form-control" type="number" required placeholder="quantity"
                                    ng-model="edit.count">
                         </label>
+                        <!-- count -->
 
-                        <label class="control-label col-xs-6">
+                        <!-- cost -->
+                        <label class="control-label col-xs-5">
                             Cost:
                             <input class="form-control" type="number" required placeholder="total cost"
                                    ng-model="edit.cost">
                         </label>
+                        <!-- cost -->
 
+                        <!-- description -->
                         <label class="control-label col-xs-12">
                             Short Description:
                             <textarea class="form-control" name="description" required
@@ -54,8 +71,9 @@
                                       ng-model="edit.description">
                             </textarea>
                         </label>
+                        <!-- description -->
 
-
+                        <!-- notes -->
                         <label class="control-label col-xs-12">
                             Additional Notes:
                             <textarea class="form-control" name="description"
@@ -63,6 +81,8 @@
                                       ng-model="edit.notes">
                             </textarea>
                         </label>
+                        <!-- notes-->
+
                     </div>
 
                 </form>
@@ -77,7 +97,6 @@
                     Delete
                 </button>
                 <!-- save button -->
-
 
                 <!-- save button -->
                 <button class="btn btn-success"

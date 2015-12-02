@@ -8,7 +8,7 @@
                 $scope.settings = settings;
                 $scope.session = authenticator.session;
                 $scope.model = model;
-                $scope.filter = { category : settings.categories[0] };
+                $scope.filter = { category : 'ALL' };
 
                 $scope.filterEvent = function (event) {
 

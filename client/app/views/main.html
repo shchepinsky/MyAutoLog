@@ -353,6 +353,7 @@
 </nav>
 <!-- application header -->
 
+<!--search and filter bar -->
 <nav class="navbar navbar-fixed-bottom"
      ng-class="{ 'navbar-inverse' : settings.useInvertedNavbar, 'navbar-default' : !settings.useInvertedNavbar }">
         <form class="navbar-form">
@@ -379,12 +380,14 @@
                 Filter Category
                 <select class="form-control" ng-model="filter.category"
                         ng-options="category for category in settings.categories">
+                    <option value="">ALL</option>
                 </select>
             </label>
         </div>
 
     </form>
 </nav>
+<!--search and filter bar -->
 
 <!-- log event table -->
 <table id="log" class="table table-bordered table-striped table-hover table-condensed">
