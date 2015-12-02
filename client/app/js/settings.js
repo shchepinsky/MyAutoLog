@@ -7,14 +7,8 @@
 
         return {
             categories: ['ALL', 'FUEL', 'ADMINISTRATIVE', 'REPAIRS', 'TUNING', 'MISC'],
-/*            categories : [
-                {name: 'ALL'},
-                {name: 'FUEL'},
-                {name: 'ADMINISTRATIVE'},
-                {name: 'REPAIRS'},
-                {name: 'TUNING'},
-                {name: 'MISC'}
-            ],*/
+            //
+            registerPolicy: { passwordLength: 3, loginLength: 3 },
             // API server URL
             API_LOG_URL: API_SERVER + '/api/log',
             API_VEHICLE_URL: API_SERVER + '/api/vehicle',

@@ -8,60 +8,103 @@
     <div class="row">
         <h2 class="text-center">Register New Account</h2>
 
-        <div class="form-group col-xs-12">
+        <div class="col-xs-12">
 
             <!-- username -->
-            <input class="form-control"
-                   type="text" name="username" placeholder="username"
-                   required ng-minlength="3"
-                   ng-model="username">
+            <div class="form-group has-feedback"
+                 ng-class="{
+                 'has-success': form.username.$valid && form.username.$dirty,
+                 'has-error': form.username.$invalid && form.username.$dirty }">
+
+                <input class="form-control" type="text" name="username" placeholder="username" required ng-minlength="3"
+                       ng-model="username">
+
+                <span class="glyphicon form-control-feedback"
+                      ng-class="{
+                      'glyphicon-ok': form.username.$valid && form.username.$dirty,
+                      'glyphicon-remove': form.username.$invalid && form.username.$dirty }"></span>
+
+                <!-- username validation messages -->
+                <div ng-show="form.username.$dirty" ng-messages="form.username.$error" class="text-danger text-center">
+                    <p ng-message="required">username is required.</p>
+                    <p ng-message="minlength">username must be at least {{settings.registerPolicy.loginLength}} characters long.</p>
+                </div>
+                <!-- username validation messages -->
+            </div>
             <!-- username -->
 
-            <!-- username validation messages -->
-            <div ng-messages="form.username.$error" class="text-danger text-center">
-                <p ng-message="required">username is required.</p>
-                <p ng-message="minlength">username is too short.</p>
-            </div>
-            <!-- username validation messages -->
-
         </div>
 
-        <div class="form-group col-xs-12">
+        <!-- password -->
+        <div class="col-xs-12">
 
-            <!-- password -->
-            <input class="form-control"
-                   type="password" name="password" placeholder="password"
-                   required required-to-match="password2"
-                   ng-model="password" ng-model-options="{ allowInvalid: true }">
-            <!-- password -->
+            <div class="form-group has-feedback"
+                 ng-class="{
+                 'has-success': form.password.$valid && form.password.$dirty,
+                 'has-error': form.password.$invalid && form.password.$dirty }">
 
-            <!-- password validation messages -->
-            <div ng-messages="form.password.$error" class="text-danger text-center">
-                <p ng-message="required">password is required.</p>
-                <p ng-message="minlength">password is too short.</p>
-                <p ng-message="requiredToMatch">passwords do not match.</p>
+                <!-- password field -->
+                <input class="form-control" type="password" name="password" placeholder="password"
+                       required required-to-match="password2" minlength="{{settings.registerPolicy.passwordLength}}"
+                       ng-model="password" ng-model-options="{ allowInvalid: true }">
+                <!-- password field -->
+
+                <!-- validation icon -->
+                <span class="glyphicon form-control-feedback"
+                      ng-class="{
+                      'glyphicon-ok': form.password.$valid && form.password.$dirty,
+                      'glyphicon-remove': form.password.$invalid && form.password.$dirty }">
+                </span>
+                <!-- validation icon -->
+
+                <!-- password validation messages -->
+                <div ng-show="form.password.$dirty" ng-messages="form.password.$error" class="text-danger text-center">
+                    <p ng-message="required">password is required.</p>
+                    <p ng-message="minlength">password must be at least {{settings.registerPolicy.passwordLength}} characters long.</p>
+                    <p ng-message="requiredToMatch">passwords do not match.</p>
+                </div>
+                <!-- password validation messages -->
             </div>
-            <!-- password validation messages -->
 
         </div>
+        <!-- password -->
 
-        <div class="form-group col-xs-12">
+        <!-- confirm password -->
+        <div class="col-xs-12">
 
-            <!-- confirm password -->
-            <input class="form-control"
-                   name="password2" placeholder="password confirmation"
-                   required type="password" required-to-match="password"
-                   ng-model="password2" ng-model-options="{ allowInvalid: true }">
-            <!-- confirm password -->
+            <div class="form-group has-feedback"
+                 ng-class="{
+                 'has-success': form.password2.$valid && (form.password.$dirty || form.password2.$dirty) ,
+                 'has-error': form.password2.$invalid && (form.password.$dirty || form.password2.$dirty) }">
 
-            <!-- confirm password validation messages -->
-            <div ng-messages="form.password2.$error" class="text-danger text-center">
-                <p ng-message="required">password confirmation is required.</p>
-                <p ng-message="requiredToMatch">passwords do not match.</p>
+                <!-- confirm password -->
+                <input type="password" class="form-control" name="password2" placeholder="password confirmation"
+                       required required-to-match="password" minlength="{{settings.registerPolicy.passwordLength}}"
+                       ng-model="password2" ng-model-options="{ allowInvalid: true }">
+                <!-- confirm password -->
+
+                <!-- confirm password validation icon -->
+                <span class="glyphicon form-control-feedback"
+                      ng-class="{
+                      'glyphicon-ok': form.password2.$valid && (form.password.$dirty || form.password2.$dirty),
+                      'glyphicon-remove': form.password2.$invalid && (form.password.$dirty || form.password2.$dirty) }">
+                </span>
+                <!-- confirm password validation icon -->
+
+                <!-- confirm password validation messages -->
+                <div ng-show="form.password.$dirty || form.password2.$dirty" ng-messages="form.password2.$error"
+                     class="text-danger text-center">
+                    <p ng-message="required">password confirmation is required.</p>
+                    <p ng-message="minlength">password must be at least {{settings.registerPolicy.passwordLength}} characters long.</p>
+                    <p ng-message="requiredToMatch">passwords do not match.</p>
+                </div>
+                <!-- confirm password validation messages -->
+
             </div>
-            <!-- confirm password validation messages -->
 
         </div>
+        <!-- confirm password -->
+
 
         <!-- submit button -->
         <div class="col-xs-6">
