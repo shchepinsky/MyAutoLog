@@ -59,7 +59,7 @@ users.createHash = function (password, callback) {
     bCrypt.genSalt(10, function (err, salt) {
         if (err) return callback(err);
 
-        bCrypt.hash(password, salt, function (err, hash) {
+        bCrypt.hash(password, salt, null, function (err, hash) {
             if (err) return callback(err);
 
             callback(null, hash);
